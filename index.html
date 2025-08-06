@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoSteps - Carbon Footprint Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  
+  <!-- Floating Elements -->
+  <div class="floating-elements" id="floatingElements"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>🌿 EcoSteps</h1>
+      <p>Track your impact. Transform the planet.</p>
+      <a href="#carbonForm" class="cta-button">
+        <span>Start Your Journey</span>
+        <span>🚀</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section class="form-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Your Daily Habits</h2>
+      <form id="carbonForm" class="form-container">
+        <div class="input-group">
+          <label for="travel">🚗 Travel Distance (km/day):</label>
+          <input type="number" id="travel" required min="0" step="0.1" />
+        </div>
+        <div class="input-group">
+          <label for="electricity">⚡ Electricity Usage (kWh/day):</label>
+          <input type="number" id="electricity" required min="0" step="0.1" />
+        </div>
+        <div class="input-group">
+          <label for="meat">🥩 Meat Meals per Week:</label>
+          <input type="number" id="meat" required min="0" step="1" />
+        </div>
+        <div class="input-group">
+          <label for="screen">📱 Screen Time (hours/day):</label>
+          <input type="number" id="screen" required min="0" step="0.1" />
+        </div>
+        <button type="submit" class="submit-btn">
+          <span class="btn-text">Calculate My Footprint</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Result Section -->
+  <section class="result-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Your Carbon Footprint</h2>
+      <div id="resultSection" class="result-display">
+        <div class="footprint-value" id="footprintValue">0.00</div>
+        <div class="footprint-label">kg CO₂ per day</div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div id="comparisonText"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress Tracking -->
+  <section class="progress-tracking fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Your Progress</h2>
+      <div id="progressSection">
+        <div class="stats-dashboard" id="statsDashboard">
+          <div class="stat-card">
+            <span class="stat-number" id="currentFootprint">--</span>
+            <span class="stat-label">Current (kg/day)</span>
+          </div>
+          <div class="glass-card" style="margin-top: 30px;">
+              <h3 class="section-title" style="font-size: 1.8rem;">Your Emission History</h3>
+                  <canvas id="footprintChart" height="200"></canvas>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-number" id="lastFootprint">--</span>
+            <span class="stat-label">Previous (kg/day)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="improvement">--</span>
+            <span class="stat-label">Change (%)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="calculations">0</span>
+            <span class="stat-label">Calculations</span>
+          </div>
+        </div>
+        <div id="progressMessage"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Breakdown -->
+  <section class="breakdown-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Emission Breakdown</h2>
+      <div class="comparison-chart" id="breakdownChart" style="display: none;">
+        <div class="chart-bar">
+          <div class="chart-label">Travel</div>
+          <div class="chart-fill" id="travelBar"></div>
+          <div class="chart-value" id="travelValue">0 kg</div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-label">Electricity</div>
+          <div class="chart-fill" id="electricityBar"></div>
+          <div class="chart-value" id="electricityValue">0 kg</div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-label">Diet</div>
+          <div class="chart-fill" id="meatBar"></div>
+          <div class="chart-value" id="meatValue">0 kg</div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-label">Screen Time</div>
+          <div class="chart-fill" id="screenBar"></div>
+          <div class="chart-value" id="screenValue">0 kg</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eco Tips Section -->
+  <section class="tips-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Personalized Eco Tips</h2>
+      <div class="tips-grid" id="ecoTips">
+        <div class="tip-card">
+          <span class="tip-icon">🌱</span>
+          <p>Complete your first calculation to receive personalized eco-friendly tips!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why This Matters -->
+  <section class="why-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">Why This Matters</h2>
+      <div class="stats-dashboard">
+        <div class="stat-card">
+          <span class="stat-number">4-6</span>
+          <span class="stat-label">kg CO₂ average per person/day</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">1.5°C</span>
+          <span class="stat-label">Global warming target</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2030</span>
+          <span class="stat-label">Climate action deadline</span>
+        </div>
+      </div>
+      <p style="margin-top: 30px; font-size: 1.1rem; color: #2d5016; line-height: 1.8;">
+        💡 <strong>EcoSteps</strong> empowers you to understand and reduce your environmental impact. 
+        Every small change contributes to a larger movement toward sustainability. By tracking your 
+        daily habits and making informed decisions, you're part of the solution to climate change.
+      </p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section fade-in-up">
+    <div class="glass-card">
+      <h2 class="section-title">About EcoSteps</h2>
+      <p style="font-size: 1.1rem; color: #2d5016; line-height: 1.8; text-align: center;">
+        EcoSteps is an advanced carbon footprint calculator that transforms environmental 
+        awareness into actionable insights. Our algorithm analyzes your daily activities 
+        across transportation, energy consumption, diet, and digital habits to provide 
+        accurate emissions calculations. With personalized recommendations, progress tracking, 
+        and engaging visualizations, EcoSteps makes sustainable living accessible and rewarding.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: rgba(45, 80, 22, 0.9); color: white; text-align: center; padding: 30px; backdrop-filter: blur(20px);">
+    <p style="font-size: 1rem;">Made with ❤️ for a sustainable future | Enhanced EcoSteps 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
